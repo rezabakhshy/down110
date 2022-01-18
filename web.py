@@ -1,3 +1,4 @@
+import shutil
 from pyrogram import Client,filters
 import requests,os
 app = Client("my_accound",api_id=13893053,api_hash="f586d92837b0f6eebcaa3e392397f47c")

@@ -1,0 +1,5 @@
+gtts
+pyrogram~=1.2.9
+TgCrypto
+requests~=2.25.1
+

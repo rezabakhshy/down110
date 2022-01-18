@@ -8,18 +8,16 @@ def gif(client,message):
     message_id=message.message_id
     chat_id=message.chat.id
     url=text[6:]
+    file_name=os.path.basename(url)
     response=requests.get(url)
     size=int(response.headers["content-length"])/1024/1024
     size=str(size)[:5]
     x=len(url)
-    m=url[x-4:]
-    if m[0]!='.':
-        m=url[x-5:]
     client.edit_message_text(chat_id,message_id,"downloding...")
-    with open(f"@REZABZ2{m}","wb") as f:
-        f.write(response.content)
+    with open(file_name,"wb") as f:
+        shutil.copyfileobj(response.raw,f)
     client.edit_message_text(chat_id,message_id,"downloding complate\n\nuploading now...")
-    client.send_document(chat_id,f"@REZABZ2{m}",caption=f"\n**NAME:** @REZABZ2{m}\n**SAIZE:** {size} MB")
-    os.remove(f"@REZABZ2{m}")
+    client.send_document(chat_id,file_name,caption=f"\n**NAME:** {file_name}\n**SAIZE:** {size} MB")
+    del response
 
 app.run()
